@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartValidator Demostracija</title>
+    <link rel="stylesheet" href="../src/styles/smart-validator.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            color: #333;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            max-width: 500px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a4a4a;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,.075);
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 123, 255, 0.2);
+        }
+
+        .form-status {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .form-status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .form-status ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 10px;
+            text-align: left;
+            font-weight: normal;
+            font-size: 0.95em;
+        }
+
+        .form-status li {
+            margin-bottom: 5px;
+        }
+
+        .theme-selector {
+            text-align: center;
+            margin-bottom: 25px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+
+        .theme-selector p {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #4a4a4a;
+        }
+
+        .theme-selector button {
+            display: inline-block;
+            width: auto;
+            padding: 10px 20px;
+            margin: 0 8px;
+            background-color: #6c757d; /* Grey for inactive */
+            font-size: 0.95em;
+            box-shadow: none; /* Reset shadow for theme buttons */
+        }
+
+        .theme-selector button:hover {
+            background-color: #5a6268;
+            transform: none; /* No transform on hover for theme buttons */
+            box-shadow: none;
+        }
+
+        .theme-selector button.active {
+            background-color: #28a745; /* Green for active theme */
+            box-shadow: 0 2px 4px rgba(40, 167, 69, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SmartValidator Demostracija</h1>
+
+        <div class="theme-selector">
+            <p>Pasirinkite temą:</p>
+            <button id="themeDefault" data-theme="default" class="active">Default</button>
+            <button id="themeMinimal" data-theme="minimal">Minimal</button>
+            <button id="themeMaterial" data-theme="material">Material</button>
+        </div>
+
+        <form id="demoForm" novalidate>
+            <div class="input-group">
+                <label for="username">Vartotojo vardas:</label>
+                <input type="text" id="username" name="username" placeholder="jonas.jonaitis">
+                <div class="error-container" data-field="username"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="email">El. paštas:</label>
+                <input type="email" id="email" name="email" placeholder="pavyzdys@info.com">
+                <div class="error-container" data-field="email"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Slaptažodis:</label>
+                <input type="password" id="password" name="password" placeholder="Mažiausiai 6 simboliai">
+                <div class="error-container" data-field="password"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="age">Amžius:</label>
+                <input type="text" id="age" name="age" placeholder="Min. 18 metų">
+                <div class="error-container" data-field="age"></div>
+            </div>
+
+            <button type="submit">Pateikti formą</button>
+        </form>
+
+        <div id="formStatus" class="form-status" style="display: none;"></div>
+    </div>
+
+    <script src="../dist/smart-validator.min.js"></script>
+    <script>
+        // Pavyzdinis naudojimo scenarijus
+        document.addEventListener('DOMContentLoaded', () => {
+            const usernameInput = document.getElementById('username');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const ageInput = document.getElementById('age');
+            const demoForm = document.getElementById('demoForm');
+            const formStatusDiv = document.getElementById('formStatus');
+
+            // Globalus validatorių masyvas, kad galėtume juos lengvai valdyti keičiant temas
+            let validators = {};
+            let currentTheme = 'default';
+
+            const initializeValidators = (theme) => {
+                // Sunaikiname esamus validatorius, jei jie egzistuoja
+                for (const key in validators) {
+                    if (validators[key]) {
+                        validators[key].destroy();
+                    }
+                }
+                validators = {}; // Išvalome masyvą
+
+                usernameInput.value = '';
+                emailInput.value = '';
+                passwordInput.value = '';
+                ageInput.value = '';
+                formStatusDiv.style.display = 'none';
+                formStatusDiv.textContent = '';
+                // Nuimame visas temų ir validacijos klases
+                [usernameInput, emailInput, passwordInput, ageInput].forEach(input => {
+                    input.classList.remove('is-valid', 'is-invalid');
+                    input.classList.forEach(cls => {
+                        if (cls.startsWith('smart-validator-theme-')) {
+                            input.classList.remove(cls);
+                        }
+                    });
+                    const errorContainer = input.nextElementSibling;
+                    if (errorContainer && errorContainer.matches(`[data-field="${input.id}"]`)) {
+                        errorContainer.textContent = '';
+                        errorContainer.removeAttribute('id');
+                    }
+                    input.removeAttribute('aria-invalid');
+                    input.removeAttribute('aria-describedby');
+                });
+
+
+                // Inicializuojame naujus validatorius su pasirinkta tema
+                validators.username = new SmartValidatorLib.SmartValidator(usernameInput, {
+                    theme: theme,
+                    locale: 'lt',
+                    realTime: true,
+                    accessibility: true
+                });
+
+                validators.email = new SmartValidatorLib.SmartValidator(emailInput, {
+                    theme: theme,
+                    locale: 'lt',
+                    realTime: true,
+                    accessibility: true
+                });
+
+                validators.password = new SmartValidatorLib.SmartValidator(passwordInput, {
+                    theme: theme,
+                    locale: 'lt',
+                    realTime: true,
+                    accessibility: true
+                });
+
+                validators.age = new SmartValidatorLib.SmartValidator(ageInput, {
+                    theme: theme,
+                    locale: 'lt',
+                    realTime: true,
+                    accessibility: true
+                });
+
+                // Pridėti taisykles Vartotojo vardui
+                validators.username.addRule({
+                    name: 'required',
+                    validator: (value) => value.trim().length > 0,
+                    message: 'required',
+                    trigger: 'blur'
+                });
+                validators.username.addRule({
+                    name: 'minlength',
+                    validator: (value) => value.trim().length >= 3,
+                    message: 'minlength',
+                    trigger: 'input'
+                });
+
+                validators.email.addRule({
+                    name: 'required',
+                    validator: (value) => value.trim().length > 0,
+                    message: 'required',
+                    trigger: 'blur'
+                });
+                validators.email.addRule({
+                    name: 'email',
+                    validator: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value),
+                    message: 'email',
+                    trigger: 'input'
+                });
+                validators.email.addRule({
+                    name: 'domain',
+                    validator: (value) => value.includes('@company.com'),
+                    message: 'domain',
+                    trigger: 'blur'
+                });
+
+                validators.password.addRule({
+                    name: 'required',
+                    validator: (value) => value.trim().length > 0,
+                    message: 'required',
+                    trigger: 'blur'
+                });
+                validators.password.addRule({
+                    name: 'minlength',
+                    validator: (value) => value.trim().length >= 6,
+                    message: 'minlength',
+                    trigger: 'input'
+                });
+                validators.password.addRule({
+                    name: 'uppercase',
+                    validator: (value) => /[A-Z]/.test(value),
+                    message: 'uppercase',
+                    trigger: 'input'
+                });
+
+                validators.age.addRule({
+                    name: 'required',
+                    validator: (value) => value.trim().length > 0,
+                    message: 'required',
+                    trigger: 'blur'
+                });
+                validators.age.addRule({
+                    name: 'number',
+                    validator: (value) => /^\d+$/.test(value) && !isNaN(value), 
+                    message: 'number',
+                    trigger: 'input'
+                });
+                validators.age.addRule({
+                    name: 'minAge',
+                    validator: (value) => parseInt(value, 10) >= 18,
+                    message: 'minAge',
+                    trigger: 'blur'
+                });
+            };
+
+            initializeValidators(currentTheme);
+
+
+            demoForm.addEventListener('submit', (event) => {
+                event.preventDefault(); 
+
+                let formIsValid = true;
+                const allErrors = [];
+
+                for (const key in validators) {
+                    const result = validators[key].validate();
+                    if (result.hasErrors()) {
+                        formIsValid = false;
+                        allErrors.push(...result.getAllMessages());
+                    }
+                }
+
+                formStatusDiv.style.display = 'block';
+                if (formIsValid) {
+                    formStatusDiv.classList.remove('error');
+                    formStatusDiv.classList.add('success');
+                    formStatusDiv.textContent = 'Forma sėkmingai pateikta!';
+                } else {
+                    formStatusDiv.classList.remove('success');
+                    formStatusDiv.classList.add('error');
+                    formStatusDiv.innerHTML = `Formoje yra klaidų:<br><ul>${allErrors.map(err => `<li>${err}</li>`).join('')}</ul>`;
+                }
+            });
+
+            document.querySelectorAll('.theme-selector button').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const newTheme = event.target.dataset.theme;
+                    if (newTheme !== currentTheme) {
+                        currentTheme = newTheme;
+                        document.querySelectorAll('.theme-selector button').forEach(btn => btn.classList.remove('active'));
+                        event.target.classList.add('active');
+                        initializeValidators(currentTheme); 
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

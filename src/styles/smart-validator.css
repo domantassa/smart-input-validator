@@ -1,0 +1,131 @@
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    display: block; 
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    box-sizing: border-box; 
+}
+
+
+.error-container {
+    color: #dc3545; 
+    font-size: 0.875em; 
+    margin-top: 0.25rem;
+    min-height: 1.2em; 
+    text-align: left;
+}
+
+
+input.is-invalid,
+textarea.is-invalid,
+select.is-invalid {
+    border-color: #dc3545;
+    padding-right: calc(1.5em + 0.75rem); 
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23dc3545' viewBox='0 0 12 12'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+/* Styles for valid state */
+input.is-valid,
+textarea.is-valid,
+select.is-valid {
+    border-color: #28a745; 
+    padding-right: calc(1.5em + 0.75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.56-1.08 1.4-.24L4 5.3l2.8-2.8c.84-.84 1.88-.8 1.4.24L5.7 6.73c-.4.4-1.04.4-1.4 0z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(0.375em + 0.1875rem) center;
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+.smart-validator-theme-default.is-invalid {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+.smart-validator-theme-default.is-valid {
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+
+.smart-validator-theme-minimal {
+    border: none; 
+    border-bottom: 2px solid #ccc; 
+    border-radius: 0;
+    box-shadow: none;
+    transition: border-bottom-color 0.2s ease-in-out;
+}
+.smart-validator-theme-minimal:focus {
+    outline: none;
+    border-bottom-color: #007bff; 
+}
+.smart-validator-theme-minimal.is-invalid {
+    border-bottom-color: #d9534f; 
+    background-image: none; 
+    padding-right: 12px;
+}
+.smart-validator-theme-minimal.is-valid {
+    border-bottom-color: #5cb85c; 
+    background-image: none; 
+    padding-right: 12px; 
+}
+.smart-validator-theme-minimal + .error-container {
+    color: #d9534f;
+    font-style: italic;
+    text-align: right; 
+}
+
+
+/* Material tema */
+.smart-validator-theme-material {
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1); 
+}
+.smart-validator-theme-material:focus {
+    outline: none;
+    border-color: #2196F3; 
+    box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14), 0 1px 7px 0 rgba(0,0,0,0.12), 0 3px 1px -1px rgba(0,0,0,0.2);
+}
+.smart-validator-theme-material.is-invalid {
+    border-color: #EF5350; 
+    box-shadow: 0 2px 2px 0 rgba(239,83,80,0.14), 0 3px 1px -2px rgba(239,83,80,0.12), 0 1px 5px 0 rgba(239,83,80,0.2);
+    background-image: none; 
+    padding-right: 12px; 
+}
+.smart-validator-theme-material.is-valid {
+    border-color: #4CAF50; 
+    box-shadow: 0 2px 2px 0 rgba(76,175,80,0.14), 0 3px 1px -2px rgba(76,175,80,0.12), 0 1px 5px 0 rgba(76,175,80,0.2);
+    background-image: none; 
+    padding-right: 12px;
+}
+
+.smart-validator-theme-material + .error-container {
+    color: #EF5350;
+    font-size: 0.75em; 
+    margin-top: 4px;
+    transform: translateY(-5px);
+    opacity: 0;
+    transition: all 0.2s cubic-bezier(.25,.8,.25,1);
+    height: 0; 
+    overflow: hidden;
+}
+
+.smart-validator-theme-material.is-invalid + .error-container {
+    opacity: 1;
+    transform: translateY(0);
+    height: auto;
+    min-height: 1.2em;
+}
